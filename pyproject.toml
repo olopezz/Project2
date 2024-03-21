@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "project-2"
+version = "0.1.0"
+description = "Giphy CLI program"
+authors = ["Omar Lopez"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.0.0"
+requests = "^2.26.0"
+
+[tool.poetry.scripts]
+giphy-cli = "giphy_cli:main"
