@@ -11,3 +11,4 @@ requests = "^2.26.0"
 
 [tool.poetry.scripts]
 giphy-cli = "giphy_cli:main"
+
