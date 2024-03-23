@@ -1,83 +1,21 @@
-import os
-import click
-import requests
+# Class will handle user input
+from giphy_api import GiphyAPI
 
-BASE_URL = "https://api.giphy.com/v1/gifs"
+class GiphyCLI:
+    def __init__(self, api_key):
+        self.giphy_api = GiphyAPI(api_key)
 
-@click.group()
-def gif():
-    print("Welcome to the Giphy CLI!")
+    def trending(self, limit=10, offset=0, rating='g'):
+        data = self.giphy_api.trending(limit, offset, rating)
+        self.print_gifs(data)
 
-@gif.command()
-@click.option("--api-key", envvar="GIPHY_API_KEY", required=True, help="Giphy API key")
-@click.option('--limit', default=10, help='Number of trending gifs to fetch.')
-def trending(api_key, limit):
-    print("Trending subcommand called!")
-    
-    # Construct the API URL for trending GIFs
-    url = f"{BASE_URL}/trending?api_key={api_key}&limit={limit}"
+    def search(self, query, limit=10, offset=0, rating='g', lang='en'):
+        data = self.giphy_api.search(query, limit, offset, rating, lang)
+        self.print_gifs(data)
 
-    try:
-        print("Making a request to the Giphy API...")
-        
-        # Make a GET request to the Giphy API
-        response = requests.get(url)
-
-        print(f"Response status code: {response.status_code}")
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the JSON response
-            data = response.json()
-
-            # Print the retrieved data
-            print("Retrieved data:")
-            for gif in data["data"]:
-                print(f"GIF ID: {gif['id']}")
-                print(f"GIF URL: {gif['url']}")
-                print(f"GIF Title: {gif['title']}")
-                print("---")
-        else:
-            print(f"Request failed with status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-
-@gif.command()
-@click.option("--api-key", envvar="GIPHY_API_KEY", required=True, help="Giphy API key")
-@click.option('--query', required=True, help='Search query.')
-@click.option('--limit', default=10, help='Number of search results to fetch.')
-def search(api_key, query, limit):
-    print("Search subcommand called!")
-    
-    # Construct the API URL for search
-    url = f"{BASE_URL}/search?api_key={api_key}&q={query}&limit={limit}"
-
-    try:
-        print("Making a request to the Giphy API...")
-        
-        # Make a GET request to the Giphy API
-        response = requests.get(url)
-
-        print(f"Response status code: {response.status_code}")
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the JSON response
-            data = response.json()
-
-            # Print the retrieved data
-            print("Retrieved data:")
-            for gif in data["data"]:
-                print(f"GIF ID: {gif['id']}")
-                print(f"GIF URL: {gif['url']}")
-                print(f"GIF Title: {gif['title']}")
-                print("---")
-        else:
-            print(f"Request failed with status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-
-if __name__ == "__main__":
-    gif()
+    def print_gifs(self, data):
+        for gif in data["data"]:
+            print(f"GIF ID: {gif['id']}")
+            print(f"GIF URL: {gif['url']}")
+            print(f"GIF Title: {gif['title']}")
+            print("---")
