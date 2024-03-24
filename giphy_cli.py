@@ -1,4 +1,4 @@
-# Class will handle user input
+# Class handles user input
 from giphy_api import GiphyAPI
 
 class GiphyCLI:

@@ -1,4 +1,4 @@
-# main click program to use GiphyCLI
+# click program to use GiphyCLI
 import os
 import click
 from giphy_cli import GiphyCLI

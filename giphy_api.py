@@ -1,4 +1,4 @@
-# Class will handle Giphy backend API
+# Class handles Giphy backend API
 import requests
 
 class GiphyAPI:
