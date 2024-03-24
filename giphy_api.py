@@ -7,12 +7,12 @@ class GiphyAPI:
     def __init__(self, api_key):
         self.api_key = api_key
 
-    def trending(self, limit=10, offset=0, rating='g'):
-        url = f"{self.BASE_URL}/trending?api_key={self.api_key}&limit={limit}&offset={offset}&rating={rating}"
+    def trending(self):
+        url = f"{self.BASE_URL}/trending?api_key={self.api_key}"
         response = requests.get(url)
         return response.json()
 
-    def search(self, query, limit=10, offset=0, rating='g', lang='en'):
-        url = f"{self.BASE_URL}/search?api_key={self.api_key}&q={query}&limit={limit}&offset={offset}&rating={rating}&lang={lang}"
+    def search(self, query):
+        url = f"{self.BASE_URL}/search?api_key={self.api_key}&q={query}"
         response = requests.get(url)
         return response.json()
