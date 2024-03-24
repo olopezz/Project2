@@ -9,24 +9,23 @@ def gif():
 
 @gif.command()
 @click.option("--api-key", envvar="GIPHY_API_KEY", required=True, help="Giphy API key")
-@click.option('--limit', default=10, show_default=True, help='Number of trending GIFs to fetch')
-@click.option('--offset', default=0, show_default=True, help='Offset for pagination')
-@click.option('--rating', type=click.Choice(['g', 'pg', 'pg-13', 'r'], case_sensitive=False), default='g', show_default=True, help='Maximum rating of GIFs')
-def trending(api_key, limit, offset, rating):
+@click.option("--count", type=int, default=5, help="Number of GIFs to display")
+@click.option("--markdown", is_flag=True, help="Print GIFs in Markdown format")
+@click.option("--lucky", is_flag=True, help="Return only the first GIF")
+def trending(api_key, count, markdown, lucky):
     giphy_cli = GiphyCLI(api_key)
-    giphy_cli.trending(limit, offset, rating)
+    giphy_cli.trending(count, markdown, lucky)
 
 @gif.command()
 @click.option("--api-key", envvar="GIPHY_API_KEY", required=True, help="Giphy API key")
 @click.argument('query', nargs=-1, required=True)
-@click.option('--limit', default=10, show_default=True, help='Number of search results to fetch')
-@click.option('--offset', default=0, show_default=True, help='Offset for pagination')
-@click.option('--rating', type=click.Choice(['g', 'pg', 'pg-13', 'r'], case_sensitive=False), default='g', show_default=True, help='Maximum rating of GIFs')
-@click.option('--lang', default='en', show_default=True, help='Specify language using a 2-letter ISO 639-1 language code')
-def search(api_key, query, limit, offset, rating, lang):
+@click.option("--count", type=int, default=5, help="Number of GIFs to display")
+@click.option("--markdown", is_flag=True, help="Print GIFs in Markdown format")
+@click.option("--lucky", is_flag=True, help="Return only the first GIF")
+def search(api_key, query, count, markdown, lucky):
     giphy_cli = GiphyCLI(api_key)
     search_query = ' '.join(query)
-    giphy_cli.search(search_query, limit, offset, rating, lang)
+    giphy_cli.search(search_query, count, markdown, lucky)
 
 if __name__ == "__main__":
     gif()
