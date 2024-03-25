@@ -12,7 +12,7 @@ class TestGiphyCLI(unittest.TestCase):
             raise ValueError("GIPHY_API_KEY environment variable is not set.")
         self.giphy_cli = GiphyCLI(self.api_key)
 
-    # Small tests (without calling the Giphy API)
+    # Small Tests (without calling the Giphy API)
     @patch("giphy_api.GiphyAPI.trending")
     def test_trending_small(self, mock_trending):
         # Mock the response from the GiphyAPI trending method
@@ -53,7 +53,7 @@ class TestGiphyCLI(unittest.TestCase):
         expected_output = "1) GIF 1 (https://giphy.com/gif1)\n2) GIF 2 (https://giphy.com/gif2)"
         self.assertEqual(output, expected_output)
 
-    # Medium tests (calling the Giphy API)
+    # Medium Tests (calling the Giphy API)
     def test_trending_medium(self):
         # Call the trending method and get the output
         with patch("sys.stdout", new=StringIO()) as fake_out:
